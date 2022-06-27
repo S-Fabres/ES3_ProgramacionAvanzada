@@ -17,6 +17,7 @@ namespace ES3_ProgramacionAvanzada
         private IMedidoresDAL medidoresDAL = new MedidoresDALArchivos();
         protected void Page_Load(object sender, EventArgs e)
         {
+        ValidationSettings: UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
             if (!IsPostBack)
             {
                 List<Medidor> medidores = medidoresDAL.ObtenerMedidores();
@@ -32,28 +33,58 @@ namespace ES3_ProgramacionAvanzada
             string codLectura = this.codLecturaTxt.Text.Trim();
             string idMedidor = this.medidorDdl.SelectedValue;
             string fecha = CalendarFecha.SelectedDate.ToString("dd-MM-yyyy");
+            string hora = horaTxt.Text.Trim() + ":" + minutosTxt.Text.Trim();
             string lecturaActual = this.lecturaActualTxt.Text.Trim();
 
-            List<Lectura> lecturas = lecturasDAL.ObtenerLecturas();
-            if (lecturas.Any(l  => l.CodLectura == codLectura)== true)
+            if (codLectura.Length == 0)
             {
-                this.mensajesLbl.Text = "El código ingresado no se encuentra disponible";
+                mensajesLbl.Text = "Todos los campos deben ser completados para guardar";
             }
             else
             {
-                List<Medidor> medidores = medidoresDAL.ObtenerMedidores();
-                Medidor medidor = medidores.Find(m => m.IdMedidor == this.medidorDdl.SelectedItem.Value);
-
-                Lectura lectura = new Lectura()
+                if (fecha.Length == 0)
                 {
-                    CodLectura = codLectura,
-                    IdMedidor = medidor.IdMedidor,
-                    Fecha = fecha,
-                    LecturaActual = lecturaActual
-                };
-                lecturasDAL.IngresarLectura(lectura);
-                this.mensajesLbl.Text = "Lectura Ingresada";
-                Response.Redirect("VerLecturas.aspx");
+                    mensajesLbl.Text = "Todos los campos deben ser completados para guardar";
+                }
+                else
+                {
+                    if (hora.Length == 0)
+                    {
+                        mensajesLbl.Text = "Todos los campos deben ser completados para guardar";
+                    }
+                    else
+                    {
+                        if (lecturaActual.Length == 0)
+                        {
+                            mensajesLbl.Text = "Todos los campos deben ser completados para guardar";
+                        }
+                        else
+                        {
+                            List<Lectura> lecturas = lecturasDAL.ObtenerLecturas();
+                            if (lecturas.Any(l => l.CodLectura == codLectura) == true)
+                            {
+                                this.mensajesLbl.Text = "El código ingresado no se encuentra disponible";
+                            }
+                            else
+                            {
+                                List<Medidor> medidores = medidoresDAL.ObtenerMedidores();
+                                Medidor medidor = medidores.Find(m => m.IdMedidor == this.medidorDdl.SelectedItem.Value);
+
+                                Lectura lectura = new Lectura()
+                                {
+                                    CodLectura = codLectura,
+                                    IdMedidor = medidor.IdMedidor,
+                                    Fecha = fecha,
+                                    Hora = hora,
+                                    LecturaActual = lecturaActual
+                                };
+                                lecturasDAL.IngresarLectura(lectura);
+                                this.mensajesLbl.Text = "Lectura Ingresada";
+                                Response.Redirect("VerLecturas.aspx");
+                            }
+                    }
+                }
+            }
             }
             
         }

@@ -30,25 +30,48 @@ namespace ES3_ProgramacionAvanzada
             string idMedidor = this.idMedidorTxt.Text.Trim();
             string lecturaInicial = this.lecturaInicialTxt.Text.Trim();
             string ultimaLectura = this.ultimaLecturaTxt.Text.Trim();
-            
-            //2. Construir el objeto de tipo Cliente
-            List<Medidor> medidores = medidoresDAL.ObtenerMedidores();
-            if(medidores.Any(m => m.IdMedidor == idMedidor)== true)
+
+            if (idMedidor.Length == 0)
             {
-                this.mensajesLbl.Text = "Medidor ya se encuentra registrado";
+                mensajesLbl.Text = "Todos los campos deben ser completados para guardar";
             }
             else
             {
-                Medidor medidor = new Medidor()
+                if (lecturaInicial.Length == 0)
                 {
-                    IdMedidor = idMedidor,
-                    LecturaInicial = lecturaInicial,
-                    UltimaLectura = ultimaLectura
-                };
-                medidoresDAL.AgregarMedidor(medidor);
-                this.mensajesLbl.Text = "Medidor ingresado correctamente";
-                Response.Redirect("VerMedidores.aspx");
+                    mensajesLbl.Text = "Todos los campos deben ser completados para guardar";
+                }
+                else
+                {
+                    if (ultimaLectura.Length == 0)
+                    {
+                        mensajesLbl.Text = "Todos los campos deben ser completados para guardar";
+                    }
+                    else
+                    {
+                        //2. Construir el objeto de tipo Cliente
+                        List<Medidor> medidores = medidoresDAL.ObtenerMedidores();
+                        if (medidores.Any(m => m.IdMedidor == idMedidor) == true)
+                        {
+                            this.mensajesLbl.Text = "Medidor ya se encuentra registrado";
+                        }
+                        else
+                        {
+                            Medidor medidor = new Medidor()
+                            {
+                                IdMedidor = idMedidor,
+                                LecturaInicial = lecturaInicial,
+                                UltimaLectura = ultimaLectura
+                            };
+                            medidoresDAL.AgregarMedidor(medidor);
+                            this.mensajesLbl.Text = "Medidor ingresado correctamente";
+                            Response.Redirect("VerMedidores.aspx");
+                        }
+                    }
+                }
             }
+            
+            
 
 
         }

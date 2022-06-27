@@ -19,12 +19,12 @@
                     <div class="form-group">
                         <label for="lecturaInicialTxt">Lectura Inicial</label>
                         <asp:TextBox ID="lecturaInicialTxt" CssClass="form-control" runat="server"></asp:TextBox>
-                        <asp:RangeValidator ID="rvclass" runat="server" ControlToValidate="lecturaInicialTxt" ErrorMessage="Ingrese una lectura de entre 4 y 9 dígitos" MaximumValue="9" MinimumValue="4" ForeColor="Red"></asp:RangeValidator>
+                        <asp:RangeValidator ID="rvclass" runat="server" ControlToValidate="lecturaInicialTxt" ErrorMessage="Ingrese una lectura de entre 4 y 9 dígitos" MaximumValue="9" ForeColor="Red"></asp:RangeValidator>
                     </div>
                     <div class="form-group">
                         <label for="ultimaLecturaTxt">Última Lectura</label>
                         <asp:TextBox ID="ultimaLecturaTxt" CssClass="form-control" runat="server"></asp:TextBox>
-                        <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="ultimalecturaTxt" ErrorMessage="Ingrese una lectura de entre 4 y 9 dígitos" MaximumValue="9" MinimumValue="4" ForeColor="Red"></asp:RangeValidator>
+                        <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="ultimalecturaTxt" ErrorMessage="Ingrese una lectura de entre 4 y 9 dígitos" MaximumValue="9" ForeColor="Red"></asp:RangeValidator>
                     </div>
                     <div class="form-group">
                         <asp:Button runat="server" ID="agregarBtn" OnClick="agregarBtn_Click"

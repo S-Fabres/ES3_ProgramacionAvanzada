@@ -15,6 +15,7 @@
                             <asp:BoundField DataField="codLectura" HeaderText="Código de lectura" />
                             <asp:BoundField DataField="idMedidor" HeaderText="ID del medidor" />
                             <asp:BoundField DataField="fecha" HeaderText="Fecha" />
+                            <asp:BoundField DataField="hora" HeaderText="Hora" />
                             <asp:BoundField DataField="lecturaActual" HeaderText="Lectura Actual" />    
                             <asp:TemplateField>
                                 <ItemTemplate>
